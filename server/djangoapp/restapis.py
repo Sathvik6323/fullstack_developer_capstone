@@ -1,5 +1,5 @@
 # Uncomment the imports below before you add the function code
-# import requests
+import requests # Make sure you uncomment this import
 import os
 from dotenv import load_dotenv
 
@@ -11,8 +11,6 @@ sentiment_analyzer_url = os.getenv(
     'sentiment_analyzer_url',
     default="http://localhost:5050/")
 
-# def get_request(endpoint, **kwargs):
-# Add code for get requests to back end
 def get_request(endpoint, **kwargs):
     params = ""
     if(kwargs):
@@ -25,10 +23,13 @@ def get_request(endpoint, **kwargs):
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
+        # You might want to add a check here for response.status_code as well
+        response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
         return response.json()
-    except:
-        # If any error occurs
-        print("Network exception occurred")
+    except requests.exceptions.RequestException as e: # Catch specific requests exceptions
+        # If any error occurs during the request (network issue, bad status code after raise_for_status)
+        print(f"Network or HTTP exception occurred: {e}")
+        return [] # Return an empty list in case of an error
 # def analyze_review_sentiments(text):
 # request_url = sentiment_analyzer_url+"analyze/"+text
 # Add code for retrieving sentiments
