@@ -1,5 +1,5 @@
 # Dealerships Review Portal - Fullstack Software Developer Capstone Project
-by Sierra Ripoche
+by SATHVIK MALLELA 
 
 ## Overview
 
